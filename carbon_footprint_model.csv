@@ -1,10 +1,5 @@
-import pandas as pd
-
-try:
-    carbon_footprint_model = pd.read_csv('carbon_footprint_model.csv')
-except FileNotFoundError:
-    print("Error: Carbon footprint model file not found.")
-except pd.errors.EmptyDataError:
-    print("Error: Carbon footprint model file is empty.")
-except pd.errors.ParserError as e:
-    print(f"Error: Unable to parse carbon footprint model file: {e}")
+Factor,Carbon Footprint
+Energy,0.0025
+Transport,0.0225
+Machinery,0.015
+Other,0.0025
