@@ -1,10 +1,10 @@
 import pandas as pd
 
-conversion_factors = {
-    "Gasoline": 0.85,
-    "Diesel": 0.95,
-    "Electric": 0.05
-}
-
-df = pd.DataFrame.from_dict(conversion_factors, orient="index")
-df.to_csv('carbon_footprint_model.csv', index=True)
+try:
+    carbon_footprint_model = pd.read_csv('carbon_footprint_model.csv')
+except FileNotFoundError:
+    print("Error: Carbon footprint model file not found.")
+except pd.errors.EmptyDataError:
+    print("Error: Carbon footprint model file is empty.")
+except pd.errors.ParserError as e:
+    print(f"Error: Unable to parse carbon footprint model file: {e}")
