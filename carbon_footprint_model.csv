@@ -1,15 +1,10 @@
-import csv
+import pandas as pd
 
-# Define the conversion factors for different fuel types
 conversion_factors = {
     "Gasoline": 0.85,
     "Diesel": 0.95,
     "Electric": 0.05
 }
 
-# Create a CSV file
-with open('carbon_footprint_model.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(["Fuel Type", "Conversion Factor"])
-    for fuel_type, factor in conversion_factors.items():
-        writer.writerow([fuel_type, factor])
+df = pd.DataFrame.from_dict(conversion_factors, orient="index")
+df.to_csv('carbon_footprint_model.csv', index=True)
