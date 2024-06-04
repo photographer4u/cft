@@ -12,21 +12,20 @@ st.header("Enter Your Data")
 
 # Create a form to collect data
 data_form = st.form("data_form")
-carbon_emissions = data_form.number_input("Carbon Emissions (kg CO2e)", min_value=0, max_value=10000)
 energy_consumption = data_form.number_input("Energy Consumption (kWh)", min_value=0, max_value=10000)
-distance_traveled = data_form.number_input("Distance Traveled (km)", min_value=0, max_value=10000)
+transport = data_form.number_input("Distance Traveled (km)", min_value=0, max_value=10000)
 fuel_type = data_form.selectbox("Fuel Type", ["Gasoline", "Diesel", "Electric"])
 submit_button = data_form.form_submit_button("Submit")
 
 # Define the carbon footprint calculation function
-def calculate_carbon_footprint(carbon_emissions, energy_consumption, distance_traveled, fuel_type):
+def calculate_carbon_footprint(energy_consumption, distance_traveled, fuel_type):
     # Calculate carbon footprint based on fuel type
     if fuel_type == "Gasoline":
-        carbon_footprint = carbon_emissions * 0.85  # conversion factor for gasoline
+        carbon_footprint = transport * 0.85  # conversion factor for gasoline
     elif fuel_type == "Diesel":
-        carbon_footprint = carbon_emissions * 0.95  # conversion factor for diesel
+        carbon_footprint = transport * 0.95  # conversion factor for diesel
     elif fuel_type == "Electric":
-        carbon_footprint = energy_consumption * 0.05  # conversion factor for electric vehicles
+        carbon_footprint = transport * 0.05  # conversion factor for electric vehicles
     else:
         carbon_footprint = 0
     
@@ -34,13 +33,13 @@ def calculate_carbon_footprint(carbon_emissions, energy_consumption, distance_tr
     distance_carbon_footprint = distance_traveled * 0.1
     
     # Calculate total carbon footprint
-    total_carbon_footprint = carbon_footprint + distance_carbon_footprint
+    total_carbon_footprint = carbon_footprint + distance_carbon_footprint + energy_consumption * 0.21
     
     return total_carbon_footprint
 
 # Calculate the carbon footprint and display the results
 if submit_button:
-    carbon_footprint = calculate_carbon_footprint(carbon_emissions, energy_consumption, distance_traveled, fuel_type)
+    carbon_footprint = calculate_carbon_footprint(energy_consumption, distance_traveled, fuel_type)
     st.write(f"Your carbon footprint is: {carbon_footprint:.2f} kg CO2e")
 
 # Define the visualization function
